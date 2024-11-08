@@ -73,6 +73,8 @@ struct NotSwiftUIStateTests {
         #expect(button.title == "1")
     }
 
+    // MARK: ObservedObject tests
+
     @Test func testConstantNested() {
         @MainActor struct Nested: View {
             var body: some View {
@@ -287,6 +289,8 @@ struct NotSwiftUIStateTests {
         #expect(button.title == "1")
     }
 
+    // MARK: State tests
+
     @Test func testSimple() {
         struct Nested: View {
             @State private var counter = 0
@@ -406,5 +410,38 @@ struct NotSwiftUIStateTests {
 
         #expect(sampleBodyCount == 2)
         #expect(nestedBodyCount == 1)
+    }
+
+    // Environment Tests
+
+    @Test func testEnvironment() {
+        struct Example1: View {
+            var body: some View {
+                EmptyView()
+                    .environment(\.exampleValue, "Hello world")
+            }
+        }
+
+        let s = Example1()
+        let node = Node()
+        s.buildNodeTree(node)
+        node.dump()
+        print(node.environmentValues)
+        print(node.children[0].environmentValues)
+    }
+}
+
+struct ExampleKey: EnvironmentKey {
+    static let defaultValue = ""
+}
+
+extension EnvironmentValues {
+    var exampleValue: String {
+        get {
+            self[ExampleKey.self]
+        }
+        set {
+            self[ExampleKey.self] = newValue
+        }
     }
 }

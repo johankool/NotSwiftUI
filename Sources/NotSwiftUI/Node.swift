@@ -4,6 +4,7 @@ internal final class Node {
     var view: BuiltinView?
     var previousView: Any?
     var stateProperties: [String: Any] = [:]
+    var environmentValues = EnvironmentValues()
 
     @MainActor
     func rebuildIfNeeded() {
@@ -12,5 +13,15 @@ internal final class Node {
 
     func setNeedsRebuild() {
         needsRebuild = true
+    }
+}
+
+internal extension Node {
+    func dump(depth: Int = 0) {
+        let indent = String(repeating: "  ", count: depth)
+        print("\(indent)\(view)")
+        for child in children {
+            child.dump(depth: depth + 1)
+        }
     }
 }
