@@ -414,11 +414,35 @@ struct NotSwiftUIStateTests {
 
     // Environment Tests
 
-    @Test func testEnvironment() {
+    @Test func testEnvironment1() {
         struct Example1: View {
             var body: some View {
                 EmptyView()
                     .environment(\.exampleValue, "Hello world")
+            }
+        }
+
+        let s = Example1()
+        let node = Node()
+        s.buildNodeTree(node)
+        node.dump()
+        print(node.environmentValues)
+        print(node.children[0].environmentValues)
+    }
+
+    @Test func testEnvironment2() {
+        struct Example1: View {
+            var body: some View {
+                EmptyView()
+                    .environment(\.exampleValue, "Hello world")
+            }
+        }
+
+        struct Example2: View {
+            @Environment(\.exampleValue) var exampleValue
+
+            var body: some View {
+                EmptyView()
             }
         }
 
