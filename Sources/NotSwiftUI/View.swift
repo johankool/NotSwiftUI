@@ -1,4 +1,4 @@
-internal import os
+//internal import os
 
 @MainActor
 public protocol View {
@@ -16,7 +16,8 @@ public extension View where Body == Never {
     }
 }
 
-internal let currentBodies = OSAllocatedUnfairLock<[Node]>(uncheckedState: [])
+//internal let currentBodies = OSAllocatedUnfairLock<[Node]>(uncheckedState: [])
+nonisolated(unsafe) internal var currentBodies = [Node]()
 
 internal extension View {
     func buildNodeTree(_ node: Node) {
@@ -26,13 +27,13 @@ internal extension View {
             return
         }
 
-        currentBodies.withLockUnchecked { currentBodies in
+//        currentBodies.withLockUnchecked { currentBodies in
             currentBodies.append(node)
-        }
+//        }
         defer {
-            currentBodies.withLockUnchecked { currentBodies in
+//            currentBodies.withLockUnchecked { currentBodies in
                 _ = currentBodies.removeLast()
-            }
+//            }
         }
 
         let shouldRunBody = node.needsRebuild || !equalToPrevious(node)

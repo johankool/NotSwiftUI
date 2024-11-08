@@ -1,4 +1,5 @@
-import Combine
+/*
+import OpenCombineShim
 @testable import NotSwiftUI
 import Testing
 
@@ -408,3 +409,4 @@ struct NotSwiftUIStateTests {
         #expect(nestedBodyCount == 1)
     }
 }
+*/

@@ -1,4 +1,4 @@
-import Combine
+import OpenCombineShim
 
 internal protocol AnyObservedObject {
     @MainActor
