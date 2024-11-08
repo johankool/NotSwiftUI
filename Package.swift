@@ -10,7 +10,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "NotSwiftUI",
-            targets: ["NotSwiftUI"])
+            targets: ["NotSwiftUI"]),
+        .library(name: "NotSwiftUIShim", targets: ["NotSwiftUIShim"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -34,6 +35,12 @@ let package = Package(
                 .product(name: "OpenCombineShim", package: "OpenCombine"),
                 .product(name: "OpenCombineFoundation", package: "OpenCombine"),
                 .product(name: "OpenCombineDispatch", package: "OpenCombine")
-            ])
+            ]),
+        .target(
+            name: "NotSwiftUIShim",
+            dependencies: [
+                "NotSwiftUI"
+            ]
+        ),
     ]
 )
