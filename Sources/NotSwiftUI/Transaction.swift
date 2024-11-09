@@ -8,11 +8,17 @@
 
 @frozen public struct Transaction {
 
+    public let animation: Animation?
+    
     /// Creates a transaction.
     @inlinable public init() {
-        
+        animation = nil
     }
 
+    @inlinable init(animation: Animation?) {
+        self.animation = animation
+    }
+    
     /// Accesses the transaction value associated with a custom key.
     ///
     /// Create custom transaction values by defining a key that conforms to the
