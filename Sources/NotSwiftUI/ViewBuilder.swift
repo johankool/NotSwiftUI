@@ -5,6 +5,7 @@ public struct ViewBuilder {
         content
     }
 
+    @available(iOS 17.0.0, macOS 14.0.0, *)
     public static func buildBlock<each Content>(_ content: repeat each Content) -> TupleView<repeat each Content> where repeat each Content: View {
         TupleView(repeat each content)
     }

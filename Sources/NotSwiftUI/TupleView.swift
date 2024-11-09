@@ -1,3 +1,4 @@
+@available(iOS 17.0.0, macOS 14.0.0, *)
 public struct TupleView <each T: View>: View {
     public typealias Body = Never
 
@@ -8,6 +9,7 @@ public struct TupleView <each T: View>: View {
     }
 }
 
+@available(iOS 17.0.0, macOS 14.0.0, *)
 extension TupleView: BuiltinView {
     func _buildNodeTree(_ node: Node) {
         var idx = 0
